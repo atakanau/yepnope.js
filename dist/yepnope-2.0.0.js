@@ -258,6 +258,13 @@ window.yepnope = (function (window, document, undef) {
       options = url;
       // Can't ever have both, so this is fine
       url = options.src || options.href;
+			if(typeof options.load == 'object' ){
+				for(var i in options.load){
+					var filename = options.load[i].match(/[^\/?#]+(?=$|[?#])/)[0] || false;
+					yepnope( options.load[i] , tests , options.callback[filename] || false )
+				}
+				return;
+			}
     }
 
     url = yepnope.urlFormatter(url, tests);
